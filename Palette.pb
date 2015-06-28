@@ -2,6 +2,7 @@
 ; pb 5.22 / 5.31
 ; date : 25/06/2015
 ; by blendman
+; For animatoon, my 2D painting and animation free software
 
 #Win_Swatch = 0
 
