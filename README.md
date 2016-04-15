@@ -1,2 +1,2 @@
 # Purebasic
-Some purebasic codes
+Some purebasic codes, under GPL.
