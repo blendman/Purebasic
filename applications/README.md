@@ -5,5 +5,7 @@
 
 You can use it, modify it, but please provide the new sources and don't forget my name Blendman ;).
 
+All those projets are open-source (GPLv3).
+
 
 Thanks.
