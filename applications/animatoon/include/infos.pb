@@ -77,7 +77,7 @@
 ; 17/03/2021 0.588 (revision 7)
 ; // Changes
 ; - if we change the langage (file/preference), the menu is updated with the new langage.
-; - change max() by SetMaximum() (max() should be get the max of two args, not set)
+; - change max() by SetMaximum() (max() should be "get the max of two args", not "set")
 ; // fixes
 ; - Set langage for Window Preference
 ; - WindowPref() didn't change the chosen langage
@@ -1382,7 +1382,7 @@
 
 ; IDE Options = PureBasic 5.73 LTS (Windows - x86)
 ; CursorPosition = 79
-; FirstLine = 69
+; FirstLine = 66
 ; Folding = G-
 ; EnableXP
 ; EnableUnicode
