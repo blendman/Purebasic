@@ -1,15 +1,15 @@
 ﻿
 ; variables
-Global ScreenX.w, ScreenY.w, NewPainting.a, canvasX.w,canvasY.w,ScreenResized
+Global ScreenX.w, ScreenY.w, NewPainting.a, canvasX.w, canvasY.w, ScreenResized
 ScreenX = 165
 ScreenY = 40
 
 Global MouseX_Old.d, MouseY_Old.d, x, y, mx, my, LayerId.a, CanvasW.w, CanvasH.w
 
-Global blend1,blend2 ; temporaire
+Global blend1,blend2 ; temporary // temporaire
 ; Global xx,yy,StartX1,StartY1
 
-;{ wacom
+;{ for tablet (wacom or other)
 Global WTInfo.WTInfo_
 Global WTOpen.WTOpen_
 Global WTPacket.WTPacket_
@@ -20,7 +20,7 @@ Global NewList Pakets.PACKET()
 ;}
 
 ; IDE Options = PureBasic 5.73 LTS (Windows - x86)
-; CursorPosition = 4
-; Folding = +
+; CursorPosition = 11
+; Folding = -
 ; EnableXP
 ; EnableUnicode

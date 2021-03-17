@@ -64,6 +64,7 @@ Enumeration ; windows
   #Win_Level
   
   
+  #Win_Exit
   #Win_About
   
 EndEnumeration
@@ -417,7 +418,7 @@ Enumeration ; gadgets
   
   #G_BrushTool
   
-  ;---- By TOOL
+  ;--- By TOOL
   
   #G_ConfirmAction ; for all action, if needed
   
@@ -889,8 +890,8 @@ Enumeration ; layer type
 EndEnumeration
 
 ; IDE Options = PureBasic 5.73 LTS (Windows - x86)
-; CursorPosition = 196
-; FirstLine = 23
-; Folding = JSDCAAw
+; CursorPosition = 66
+; FirstLine = 12
+; Folding = QAAAAAw
 ; EnableXP
 ; EnableUnicode

@@ -52,7 +52,7 @@ Repeat
       EventWindow = EventWindow()
           
       RunScript(ScriptNumber)
-      AutoSave_NoThread()
+      AutoSave()
     
     If event <> 0
       
@@ -500,7 +500,7 @@ Repeat
                 
               ElseIf EventGadget > #G_LastGadget
                 
-                ; on clique sur le layer gadget
+                ; Click on the layer gadget // on clique sur le layer gadget
                 For i =0 To ArraySize(layer())
                   
                   If EventGadget = layer(i)\IG_LayerMenu
@@ -610,7 +610,7 @@ Repeat
 ;                   EndIf
                     ;}
                     
-                  Case #G_LayerBM
+                  Case #G_LayerBM ; blendmode of the layer
                     oldbm = layer(layerid)\bm
                     Layer_SetBm(GetGadgetState(#G_LayerBM))
                     newpainting = 1
@@ -651,7 +651,7 @@ Repeat
                     Layer(LayerId)\LockPaint = GetGadgetState(#G_LayerLockPaint)
                     ;}
                     
-                    ;{ boutons
+                    ;{ Buttons for layer // boutons des layers
                   Case #G_LayerAdd
                     If OldAction <> Action
                       Layer_ValidChange(Action)  
@@ -1157,6 +1157,8 @@ Repeat
                 
               Case #G_Cob_Lang
                 OptionsIE\lang$ = GetGadgetText(#G_Cob_Lang)
+                SaveOptions()
+                UpdateLanguageUI() ; in Menu.pbi
                 ; OpenLang()
                 ; AddMenuMain()
                 
@@ -1250,12 +1252,12 @@ Repeat
               If EventwParam()>0     ; I should use SetWindowCallback() for crossplatform !!!         
                 If OptionsIE\zoom <5000
                   OptionsIE\zoom=OptionsIE\zoom +10
-                   ScreenZoom()
+                  ScreenZoom()
                 EndIf
               ElseIf EventwParam()<0
                 If OptionsIE\zoom> 10
                   OptionsIE\zoom=OptionsIE\zoom -10
-                   ScreenZoom()
+                  ScreenZoom()
                 EndIf
               EndIf
             EndIf
@@ -1330,7 +1332,7 @@ Repeat
           ;}
           
         Case #PB_Event_SizeWindow
-          ;{ on resize la fenêtre
+          ;{ resize the window // on resize la fenêtre
           MenuOpen = 1
           ScreenResized = 1
           IE_UpdateGadget()
@@ -1346,18 +1348,32 @@ Repeat
   
   IncludeFile "loop_mousekeyb.pb"
   
+  ; confirm exit
+  If quit = 1
+    If OptionsIE\ConfirmExit = 1
+      If OptionsIE\ImageHasChanged
+        If MessageRequester(Lang("Exit"), Lang("Do you confirm you want to exit this beautiful program ? You have some work which aren't saved."), 
+                            #PB_MessageRequester_YesNo) = #PB_MessageRequester_No    
+          quit =0
+        EndIf
+      EndIf
+    EndIf
+  EndIf
+  
+  
+  
 Until quit = 1
 
 CompilerEndIf
 
 
-;{ on ferme l'application
+;{ Close application // on ferme l'application
 If tablet
   WTClose(hCtx)
   CloseLibrary(0)
 EndIf
 
-If OptionsIE\autosave
+If OptionsIE\AutosaveAtExit
    If OptionsIE\ImageHasChanged
      ExportImage(1)
    EndIf
@@ -1370,8 +1386,8 @@ End
 
 
 ; IDE Options = PureBasic 5.73 LTS (Windows - x86)
-; CursorPosition = 1288
-; FirstLine = 81
-; Folding = hHAAAAAwcK0BAAAABAAAg-fA+
+; CursorPosition = 1159
+; FirstLine = 76
+; Folding = hHQQAAAAvTJPAAAAIAQhB95D0+
 ; EnableXP
 ; EnableUnicode

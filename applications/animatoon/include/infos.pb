@@ -3,10 +3,11 @@
 
 ; Animatoon version Screen
 ; PB : 5.73 LTS
-; blendman 2015 & 2021
-; testé sous win8/Win10 avec wacom : ok
+; blendman 2011, 2015 & 2021
+; tested win8/Win10 with wacom : ok
 ; LICENCE : GPLv3.
-; use this code at your own RISK !
+; use this code at your own RISK ! ;)
+
 
 ;{ pen/tablet input test for wacom tablets and compatible devices
 ; using WINTAB32.dll;
@@ -17,17 +18,21 @@
 
 ;{ ************************* CHANGES ********************************
 
-; 1. priorité *********
+; 1. Priority// priorité *********
 
 ; URGENT
 ; - brush fondu alpha et size
+; - pipette option : all, layer only, all above
 
 ; BUGS
 ; - cadre selection bug avec zoom
 ; - gradient linear AR
 ; - bug UI à l'ouverture suivante, quand on déplace les splitters en Y (swatch par exemple)
-; - bug outil zoom ? : à priori non, mais à revoir (inverser avec ou sans ctrl et moins rapide)
-
+; - revoir la création et loading des images si erreur ! 
+; - dans gadgets.pbi : parfois, on est pas dans la surface pour faire point() : (bug debugger)
+; Brush(Action)\color  = Point(x,y) et  Brush(Action)\ColorFG  = Point(x,y) 
+; - bug avec l'alpha du brush si sizewidth <20 (bug resizeimage premul) : 
+; créer une copie de l'image au lieu de faire un resize et utiliser cette copie (qui sera une image genre 150*150, mais avec l'image resized en w.
 
 
 ; BRUSH
@@ -38,34 +43,77 @@
 ; - ajouter bezier sur les strokes
 ; - ajouter brush éditor et ne laisser que quelques gadgets sur le panneau outils (taille, alpha, dureté..)
 
+
 ; TOOLS
-; - bug degradé linéaire !!
-; - degradé ne conserve pas les couleurs si on quitte.
-; - ajouter tampon
-; - ajouter sorte de tampon (niveau de gris) + couleur, pour peindre de l'aquarelle (texture) avec une couleur.
+; - bug linear gradient !!
+; - add pattern tool (tampon)
+; - add a kind ot pattern-tool grey level + color // 
+; (ajouter sorte de tampon (niveau de gris) + couleur, pour peindre de l'aquarelle (texture) avec une couleur.)
 
 ; PAPER
-; - ajouter paper editor
+; - add a paper editor
 ; - AR !!!! paper scale : ok when change trackbar paperScale
-; ok 0.586- ajouter un fond couleur (blanc pour le moment)
+; ok 0.586- add a color background (white for the moment)
 
 ; IMAGEs
-; - niveau ne fonctionne pas très bien, voir en temps réel et mettre plus d'info sur les trackbar (on ne sait pas ce que c'est)
+; - Level is'nt good // niveau ne fonctionne pas très bien, voir en temps réel et mettre plus d'info sur les trackbar (on ne sait pas ce que c'est)
 
 ; Layers
-; - revoir bm : darken, linearlight, overlay (??)
+; - better blendmode : darken, linearlight, overlay (??)
 
 ; SCREEN/CANVAS
-; - ajouter un canvas output pour l'affichage sur canvas au lieu du screen (au choix) pour le preview et export.
+; - add a canvas for the preview (we have the choice : use a screen+sprite or a canvas+image) // ajouter un canvas output pour l'affichage sur canvas au lieu du screen (au choix) pour le preview et export.
 
 ; Interface (gadget, menu..)
-; - ajouter trackbar pour : brush size, alpha
-; - ajouter scrollarea gadget pour : brush (gen, tra, dyn), option paper
-; - donner le choix de l'interface (parametre sur onglet gen ou séparé (sur onglet tra et dyn))
-; - ajouter Emulate Numpad (on utiliser alors les touches 1 à 0 en remplacement).
-; - confirmexit (option, message)
+; - add trackbar for : brush size, alpha
+; - add scrollarea gadget pour : brush (gen, tra, dyn), option paper
+; - Give the choice for gadget for brush // donner le choix de l'interface (parametre sur onglet gen ou séparé (sur onglet tra et dyn))
+; - Add (ajouter) Emulate Numpad (We can use the keyboard 1 to 0 to replace the numpad //on utilise alors les touches 1 à 0 en remplacement).
+; - Add statistics of use (nb of days, nb of hours...) // ajouter des statistiques : jour et session (heure de début, heure de fin, heure où on travaille, fichier sur lequel on travaille), 
+; nbre d'heure, nbre de jour, dernier jour ouvert, Nbre de documents créés.
 
-; 11/03/2021 0.588
+
+
+; 17/03/2021 0.588 (revision 7)
+; // Changes
+; - if we change the langage (file/preference), the menu is updated with the new langage.
+; - change max() by SetMaximum() (max() should be get the max of two args, not set)
+; // fixes
+; - Set langage for Window Preference
+; - WindowPref() didn't change the chosen langage
+
+
+; 16/03/2021 0.588 (revision 6)
+; // New
+; - autosaveAtExit (option save/load)
+; - ConfirmExit message (+option save/load)
+; - parameters of gradient are now saved in option when exit (color (BG, FG), type, alpha (BG, FG))
+; // Changes
+; WIP - pipette option : all, layer only, all above
+; - AddLogError() now append the file (not create a new file each time we open animatoon ^^)
+; - lang() : now, I check If the word$ exists in the ini langage file.
+; - bug outil zoom ? : à priori non, mais à revoir (inverser avec ou sans ctrl et moins rapide)
+; // fixes
+; // test
+; - PreMultiply alpha To fixe the bug ResizeImage() dont work for the moment
+
+
+; 15/03/2021 0.588 (revision 5)
+; // tests
+; - PreMultiply alpha To fixe the bug ResizeImage() (black border with alpha) And other bug (saveimage with vectorlib)
+
+; 13/03/2021 0.588 (revision 4)
+; // Tests
+; - brush noise
+; - brush fondu vers transparent (avec du noise)
+; // Changes
+; - fond image brush est maintenant un checkker avec alpha = 30
+; // fixes
+; - Crash si on n'a pas le paper
+; - verification de création de certaines images (checker, paper)
+
+
+; 12/03/2021 0.588
 ; // New
 ; wip - zoom centré sur souris
 ; - addlogError() to write in a log error file text, if we have an error (I have to use this procedure in all error, need to update all the code ^^).
@@ -87,6 +135,12 @@
 ; // WIP
 ; - very WIP !!!  add main loop for macOS too (I have forgotten ^^).
 
+; 11/03/2021
+; // tests
+; - app photo, texture papier
+; - canvas vector
+; - file drawer
+; - stroke curve
 
 ; 10/03/2021 0.587.5
 ; // New
@@ -1327,8 +1381,8 @@
 
 
 ; IDE Options = PureBasic 5.73 LTS (Windows - x86)
-; CursorPosition = 23
-; FirstLine = 12
+; CursorPosition = 79
+; FirstLine = 69
 ; Folding = G-
 ; EnableXP
 ; EnableUnicode

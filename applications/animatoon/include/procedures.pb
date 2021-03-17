@@ -447,8 +447,8 @@ XIncludeFile "procedures\window.pbi"
 
 ; IDE Options = PureBasic 5.73 LTS (Windows - x86)
 ; CursorPosition = 105
-; FirstLine = 22
-; Folding = wgDA0Z35
+; FirstLine = 40
+; Folding = wgBA5Z35-
 ; EnableXP
 ; Executable = ..\_old\animatoon_screen0.22.exe
 ; SubSystem = openGL

@@ -147,11 +147,34 @@
               
           If layer(LayerID)\locked = 0 And layer(LayerID)\view = 1
             
-            Layer(layerId)\Haschanged = 1 ;For autosave // pour l'autosave OU pour updater l'image du layer
+            Layer(layerId)\Haschanged = 1 ; For autosave // pour l'autosave OU pour updater l'image du layer
             
             If alt = 1 ; on prend la couleur
                             
-                ;{ on prend la couleur (alt + clic)
+              ;{ We get the color on the surface canvas-screen  // on prend la couleur (alt + clic)
+              old_pipette = 0
+              
+              If old_pipette = 0
+               Select brush(#Action_Pipette)\Type
+                Case 1 ; all layers
+                  If StartDrawing(ScreenOutput())
+                    DrawingMode(#PB_2DDrawing_AlphaBlend)
+                    GetColor(mx,my)
+                    StopDrawing()
+                  EndIf
+                Case 0 ; current layer only
+                   If StartDrawing(ImageOutput(layer(layerId)\Image))
+                    DrawingMode(#PB_2DDrawing_AlphaBlend)
+                    GetColor(mx/z,my/z)
+                    StopDrawing()
+                  EndIf
+                Case 2 ; all above
+              EndSelect
+              BrushUpdateColor()
+              
+              
+              
+              ElseIf old_pipette = 1
                 ; If StartDrawing(ImageOutput(Layer(LayerId)\Image))
                 ClearScreen(RGB(120,120,120))                    
                 ; Puis on affiche le fond (paper)          
@@ -186,6 +209,7 @@
                       EndIf
                     EndIf
                   Next i 
+                EndIf
                 EndIf
                 ;}
                                 
@@ -814,12 +838,22 @@
         
           Select Action ; Other actions (move, transform, hand, zoom, color picker..) 
               
-            Case #Action_Pipette             
-              If StartDrawing(ScreenOutput())
-                DrawingMode(#PB_2DDrawing_AlphaBlend)
-                GetColor(mx,my)
-                StopDrawing()
-              EndIf
+            Case #Action_Pipette 
+              Select brush(action)\Type
+                Case 1 ; all layers
+                  If StartDrawing(ScreenOutput())
+                    DrawingMode(#PB_2DDrawing_AlphaBlend)
+                    GetColor(mx,my)
+                    StopDrawing()
+                  EndIf
+                Case 0 ; current layer only
+                   If StartDrawing(layer(layerId)\Image)
+                    DrawingMode(#PB_2DDrawing_AlphaBlend)
+                    GetColor(mx,my)
+                    StopDrawing()
+                  EndIf
+                Case 2 ; all above
+              EndSelect
               BrushUpdateColor()
               
             Case #Action_Move
@@ -935,13 +969,13 @@
               ;}
               
             Case #Action_Zoom 
-              If control = 0
-                If OptionsIE\Zoom>10                  
-                  OptionsIE\Zoom -10
+              If control = 1
+                If OptionsIE\Zoom>1                  
+                  OptionsIE\Zoom -1
                   ScreenZoom()
                 EndIf
               Else
-                OptionsIE\Zoom +10
+                OptionsIE\Zoom +1
                 ScreenZoom()
               EndIf
               
@@ -1305,8 +1339,8 @@
   FPS()
  
 ; IDE Options = PureBasic 5.73 LTS (Windows - x86)
-; CursorPosition = 1025
-; FirstLine = 66
-; Folding = 8aEAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA+
+; CursorPosition = 149
+; FirstLine = 57
+; Folding = 8acwfGAAAAAAAAAAAAaAAAoAAAAAAAAAAA+--
 ; EnableXP
 ; EnableUnicode

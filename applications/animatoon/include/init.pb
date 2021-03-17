@@ -23,7 +23,14 @@ LoadImage(#ico_Prop,  OptionsIE\Theme$ +"\icones\action.png")
 
 
 
-LoadImage(#Img_Checker,  "data/paper/paper0.png")
+If LoadImage(#Img_Checker,  "data/paper/paper0.png") = 0
+  MessageRequester(lang("Error"), Lang("Unable to load the paper0.png"))
+  If CreateImage(#Img_Checker, 64, 64) = 0
+    MessageRequester(lang("Error"), Lang("Unable to create the image checker"))
+  EndIf
+  
+EndIf
+
 
 
 
@@ -71,7 +78,7 @@ LoadImage(#ico_LayerDown,     OptionsIE\Theme$ +"\icones\down.png")
 LoadImage(#ico_LayerMask,     OptionsIE\Theme$ +"\layerbtn3.jpg")
 
 ; IDE Options = PureBasic 5.73 LTS (Windows - x86)
-; CursorPosition = 2
+; CursorPosition = 28
 ; Folding = -
 ; EnableXP
 ; EnableUnicode

@@ -181,6 +181,11 @@ Structure sOptions
   ShapeTyp.a
   ShapeParam.a
   ShapeFullLayer.a
+  
+  ; gradient
+  GradientType.a
+  GradientBG.i
+  GradientFG.i
   ;}
   
   ; general
@@ -188,7 +193,6 @@ Structure sOptions
   Version$
   ModeAdvanced.a
   ConfirmAction.a
-  ConfirmExit.a
   
   DoScript.a ; 1 = save, 2 = run
   NbScript.w
@@ -196,7 +200,11 @@ Structure sOptions
   ; save
   Autosave.a
   AutosaveTime.i
+  AutosaveAtExit.a
   ImageHasChanged.a
+  
+  ConfirmExit.a
+
   
   ; Undo
   Maxundo.w
@@ -722,9 +730,9 @@ Global NewList Ani_Plugins.sPlugins()
 
 
 ; IDE Options = PureBasic 5.73 LTS (Windows - x86)
-; CursorPosition = 197
-; FirstLine = 2
-; Folding = AAAAA5
-; Markers = 351
+; CursorPosition = 185
+; FirstLine = 51
+; Folding = AGAAA5
+; Markers = 359
 ; EnableXP
 ; EnableUnicode

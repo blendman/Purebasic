@@ -56,13 +56,13 @@ Procedure Snap(x,grid=10)
 EndProcedure
 
 ;{ util, math
-Procedure Max(a,b)
+Procedure SetMaximum(a,b)
   If a > b
     a = b
   EndIf
   ProcedureReturn a
 EndProcedure
-Procedure min(a,b)
+Procedure Min(a,b)
   
   If a>b
     ProcedureReturn b
@@ -157,8 +157,9 @@ Macro DeleteArrayElement(ar, el)
 EndMacro
 
 
-; IDE Options = PureBasic 5.31 (Windows - x64)
-; CursorPosition = 55
-; Folding = 5VU4VA9
-; EnableUnicode
+; IDE Options = PureBasic 5.73 LTS (Windows - x86)
+; CursorPosition = 64
+; FirstLine = 12
+; Folding = 52f4VA9
 ; EnableXP
+; EnableUnicode

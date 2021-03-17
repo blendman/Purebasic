@@ -3,10 +3,10 @@ XIncludeFile "include\infos.pb" ; infos
 
 ;{ *** constante
 XIncludeFile "include\enumeration.pb"
-#ProgramVersion   = "0.588"
-#ProgramRevision  = 4
+#ProgramVersion   = "0.5.8.8"
+#ProgramRevision  = 7
 #ProgramDate      = #PB_Compiler_Date ; "23/07/2015", 02/2021
-#ProgramNbLine    = "19560"
+#ProgramNbLine    = "19960"
 ;}
 
 ;{ *** structure
@@ -270,13 +270,13 @@ XIncludeFile "include\loop.pb"
 
 
 ; IDE Options = PureBasic 5.73 LTS (Windows - x86)
-; CursorPosition = 16
-; FirstLine = 1
-; Folding = AAAA5
+; CursorPosition = 8
+; Folding = FBAA5
 ; EnableXP
 ; EnableUser
 ; UseIcon = teo.ico
-; Executable = animatoon0.57.exe
+; Executable = animatoon0.588.exe
+; DisableDebugger
 ; Warnings = Display
 ; EnablePurifier
 ; IncludeVersionInfo

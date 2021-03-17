@@ -10,30 +10,49 @@ EndIf
 
 ; Debug "lang " + OptionsIE\Lang$
 
-; on créé la map() pour le fichier  de lang
+Declare ReadLang(keyword$,m=0)
+
+; Create the map() for the langage file // on créé la map() pour le fichier  de lang
 Global NewMap Lang0.s()
 
 Procedure.s Lang(keyword$)
   
   Define word$
   
-  ; pour définir le mot par défaut, si le fichier ini de langue ne le contient pas.
-  word$ = Lang0(keyword$)
-  If word$ <> ""
-    keyword$ = word$
-  EndIf
+  ; TO define the word by default, if the ini file does'nt have it // pour définir le mot par défaut, si le fichier ini de langue ne le contient pas.
+;   word$ = Lang0(keyword$)
+;   If word$ <> ""
+;     
+;     keyword$ = word$
+;     
+;   Else
+    
+    ; if word$ = "", test if we have the words in our ini file for lang.
+;     If keyword$ <> ""
+      If OpenPreferences("data\Lang\"+OptionsIE\Lang$+".ini")
+        ReadLang(keyword$)
+        ClosePreferences()
+      EndIf
+      
+      word$ = Lang0(keyword$)
+      If word$ <> ""
+        keyword$ = word$
+      EndIf
+;     EndIf
+;   EndIf
   
   ProcedureReturn keyword$
   
 EndProcedure
 
-Procedure ReadLang(keyword$,m=0)
+Procedure ReadLang(keyword$, m=0)
   Define word$
   
   Lang0(keyword$)= keyword$
   
   If m = 0
-    word$= ReadPreferenceString(keyword$,keyword$)
+    ; Debug keyword$
+    word$= ReadPreferenceString(keyword$, keyword$)
     If word$ <> ""
       Lang0(keyword$) = ReplaceString(word$,"#",Chr(13))
     EndIf
@@ -43,6 +62,9 @@ EndProcedure
 
 ; Debug "data\Lang\"+OptionsIE\Lang$+".ini"
 
+
+; in fact, it's no more needed with the change (march 2021) of the procedure readlang()
+; but I keep it for the moment.
 If OpenPreferences("data\Lang\"+OptionsIE\Lang$+".ini")
   
   
@@ -644,7 +666,7 @@ EndIf
 CompilerEndIf
 
 ; IDE Options = PureBasic 5.73 LTS (Windows - x86)
-; CursorPosition = 20
-; FirstLine = 7
-; Folding = 0dAA5
+; CursorPosition = 45
+; FirstLine = 16
+; Folding = 08AAw
 ; EnableXP
